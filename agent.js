@@ -34,7 +34,7 @@ class agent {let
         this.sad = new nueron(sadweight);
         this.fear = new nueron(fearweight);
         this.anger = new nueron(angerweight);
-        this.values = [0, 0, 0, 0]
+        this.values = [.5, .5, .5, .5]
     }
 
     go(vals){
@@ -44,5 +44,9 @@ class agent {let
         let val4 = this.fear.run(vals);
         this.values = [val1, val2, val3, val4];
         console.log(this.values);
+    }
+
+    changeVals(newVals){
+        this.values = newVals;
     }
 }

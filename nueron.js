@@ -15,6 +15,6 @@ class nueron{
     }
 
     sigmoid(input){
-        return 1 / (1 + Math.exp(-5 * (input - 0.5)));
+        return 1 / (1 + Math.exp(-3 * (input - (this.weghts.length / 8))));
     }
 }
