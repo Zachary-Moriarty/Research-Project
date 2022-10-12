@@ -17,4 +17,9 @@ class socialNetwork{
             this.agents[i].go(vals);
         }
     }
+    loopRun(times){
+        for(let i = 0; i < times; i++){
+            this.run();
+        }
+    }
 }

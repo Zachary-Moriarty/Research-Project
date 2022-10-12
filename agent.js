@@ -1,5 +1,6 @@
 class agent {let 
     constructor(connections) {
+        this.mask = new Array(connections * 4).fill(1);
         let joyweight = [connections*4];
         let sadweight = [connections*4];
         let fearweight = [connections*4];
@@ -38,15 +39,19 @@ class agent {let
     }
 
     go(vals){
-        let val1 = this.joy.run(vals);
-        let val2 = this.sad.run(vals);
-        let val3 = this.anger.run(vals);
-        let val4 = this.fear.run(vals);
+        let val1 = this.joy.run(vals, this.mask);
+        let val2 = this.sad.run(vals, this.mask);
+        let val3 = this.fear.run(vals, this.mask);
+        let val4 = this.anger.run(vals, this.mask);
         this.values = [val1, val2, val3, val4];
         console.log(this.values);
     }
 
     changeVals(newVals){
         this.values = newVals;
+    }
+
+    changeMask(newMask){
+        this.mask = newMask;
     }
 }

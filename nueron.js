@@ -3,13 +3,13 @@ class nueron{
         this.weghts = wghtList;
     }
 
-    run(inputList){
+    run(inputList, mask){
         if(inputList.length != this.weghts.length){
             return null;
         }
         let sum = 0;
         for(let i = 0; i < this.weghts.length; i++){
-            sum += inputList[i] * this.weghts[i];
+            sum += inputList[i] * this.weghts[i] * mask[i];
         }
         return this.sigmoid(sum);
     }
