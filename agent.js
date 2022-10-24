@@ -59,9 +59,6 @@ class agent {let
         this.position = [newRow, newCol]
     }
     draw(ctx, engine){
-        ctx.fillStyle = "black";
-        ctx.globalAlpha = 1;
-        ctx.fillRect(this.position[0], this.position[1], 50, 50);
         ctx.fillStyle = "green";
         ctx.globalAlpha = this.values[0];
         ctx.fillRect(this.position[0], this.position[1], 25, 25);
@@ -74,6 +71,10 @@ class agent {let
         ctx.fillStyle = "red";
         ctx.globalAlpha = this.values[3];
         ctx.fillRect(this.position[0] + 25, this.position[1] + 25, 25, 25);
+        ctx.globalAlpha = 1
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(this.position[0], this.position[1], 50, 50)
     }
     update(){
 

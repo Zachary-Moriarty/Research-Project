@@ -9,10 +9,8 @@ ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
 
-	for(let i = 0; i < agents.agents.length; i++){
-		gameEngine.addEntity(agents.agents[i]);
-	}
-
+	gameEngine.addEntity(agents)
+	
 	gameEngine.init(ctx);
 
 

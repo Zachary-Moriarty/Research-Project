@@ -36,8 +36,10 @@ class socialNetwork{
             this.run();
         }
     }
-    draw(){
-
+    draw(ctx, engine){
+        for(let i = 0; i < this.agents.length; i++){
+            this.agents[i].draw(ctx, engine);
+        }
     }
     update(){
 
