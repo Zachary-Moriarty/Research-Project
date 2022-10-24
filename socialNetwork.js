@@ -1,9 +1,23 @@
 class socialNetwork{
-    constructor(agentCount){
-        this.agents = new Array(agentCount);
-        for(let i = 0; i < agentCount; i++){
-            this.agents[i] = new agent(agentCount);
+    constructor(){
+        this.net = new networks();
+        this.buildNetwork('allConnectedSmall')
+    }
+
+    buildNetwork(networkName){
+        let network = this.net.getNet(networkName);
+        let masks = network.masks;
+        let positions = network.positions
+        this.agents = new Array(masks.length);
+        for(let i = 0; i < masks.length; i++){
+            this.agents[i] = new agent(masks.length, positions[i]);
+            this.agents[i].changeMask(masks[i]);
         }
+
+    }
+
+    changeNetwork(name){
+        this.buildNetwork(name);
     }
 
     run(){
@@ -21,5 +35,11 @@ class socialNetwork{
         for(let i = 0; i < times; i++){
             this.run();
         }
+    }
+    draw(){
+
+    }
+    update(){
+
     }
 }

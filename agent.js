@@ -1,5 +1,5 @@
 class agent {let 
-    constructor(connections) {
+    constructor(connections, position) {
         this.mask = new Array(connections * 4).fill(1);
         let joyweight = [connections*4];
         let sadweight = [connections*4];
@@ -36,6 +36,7 @@ class agent {let
         this.fear = new nueron(fearweight);
         this.anger = new nueron(angerweight);
         this.values = [.5, .5, .5, .5]
+        this.position = position;
     }
 
     go(vals){
@@ -53,5 +54,28 @@ class agent {let
 
     changeMask(newMask){
         this.mask = newMask;
+    }
+    changePosition(newRow, newCol){
+        this.position = [newRow, newCol]
+    }
+    draw(ctx, engine){
+        ctx.fillStyle = "black";
+        ctx.globalAlpha = 1;
+        ctx.fillRect(this.position[0], this.position[1], 50, 50);
+        ctx.fillStyle = "green";
+        ctx.globalAlpha = this.values[0];
+        ctx.fillRect(this.position[0], this.position[1], 25, 25);
+        ctx.fillStyle = "blue";
+        ctx.globalAlpha = this.values[1];
+        ctx.fillRect(this.position[0] + 25, this.position[1], 25, 25);
+        ctx.fillStyle = "yellow";
+        ctx.globalAlpha = this.values[2];
+        ctx.fillRect(this.position[0], this.position[1] + 25, 25, 25);
+        ctx.fillStyle = "red";
+        ctx.globalAlpha = this.values[3];
+        ctx.fillRect(this.position[0] + 25, this.position[1] + 25, 25, 25);
+    }
+    update(){
+
     }
 }
