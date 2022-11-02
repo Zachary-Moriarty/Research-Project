@@ -17,5 +17,17 @@
 </head>
 <body>
     <canvas id="gameWorld" width="1024" height="768" style="background: white; border: 1px solid black" tabindex="0" autofocus></canvas>
+    <button id="Run" type = "button">Run</button>
+    <button id="stop" type= "button">Stop</button>
+    <button id="step" type = "button">Step</button>
+    <button id="reset" type = "button">Reset</button>
+    <select id="networks">
+        <option>allConnectedSmall</option>
+        <option>TraditionalMediaSmall</option>
+    </select>
+    <div>
+        <input type="range" id="steepness" min="4" max="16" step="4">
+        <label for="steepness">Slope</label>
+    </div>
 </body>
 </html>

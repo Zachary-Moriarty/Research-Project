@@ -1,6 +1,6 @@
 class agent {let 
     constructor(connections, position) {
-        this.mask = new Array(connections * 4).fill(1);
+        this.mask = new Array(connections).fill(1);
         let joyweight = [connections*4];
         let sadweight = [connections*4];
         let fearweight = [connections*4];
@@ -59,6 +59,8 @@ class agent {let
         this.position = [newRow, newCol]
     }
     draw(ctx, engine){
+        ctx.fillStyle = "black";
+        ctx.fillRect(this.position[0], this.position[1], 50, 50);
         ctx.fillStyle = "green";
         ctx.globalAlpha = this.values[0];
         ctx.fillRect(this.position[0], this.position[1], 25, 25);
@@ -75,6 +77,14 @@ class agent {let
         ctx.strokeStyle = "black";
         ctx.lineWidth = 2;
         ctx.strokeRect(this.position[0], this.position[1], 50, 50)
+        ctx.beginPath();
+        ctx.moveTo(this.position[0] + 24, this.position[1]);
+        ctx.lineTo(this.position[0] + 24, this.position[1] + 50);
+        ctx.stroke();
+        ctx.moveTo(this.position[0] , this.position[1] + 24);
+        ctx.lineTo(this.position[0] + 50, this.position[1] + 24);
+        ctx.stroke();
+        
     }
     update(){
 
