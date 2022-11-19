@@ -53,6 +53,21 @@ class GameEngine {
             if (this.options.debugging) {
                 console.log("CLICK", getXandY(e));
             }
+            let point = getXandY(e);
+            let found = false;
+            let temp = this.entities[0];
+            let i = 0;
+            while(!found && i < temp.agents.length){
+                if(point.x >= temp.agents[i].position[0] && point.x <= temp.agents[i].position[0] + temp.agents[i].height && point.y >= temp.agents[i].position[1] && point.y <= temp.agents[i].position[1] + temp.agents[i].width){
+                    found = true;
+                    document.getElementById('agentNum').value = i;
+                    document.getElementById('joyNum').value = Math.round(temp.agents[i].values[0] * 100) / 100;
+                    document.getElementById('sadNum').value = Math.round(temp.agents[i].values[1] * 100) / 100;
+                    document.getElementById('fearNum').value = Math.round(temp.agents[i].values[2] * 100) / 100;
+                    document.getElementById('angerNum').value = Math.round(temp.agents[i].values[3] * 100) / 100;
+                }
+                i++;
+            }
             this.click = getXandY(e);
         });
 

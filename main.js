@@ -15,12 +15,14 @@ ASSET_MANAGER.downloadAll(() => {
 
 	const run = document.getElementById("Run");
 	const stop = document.getElementById("stop");
-	const choice = document.getElementById("networks");
+	const networkType = document.getElementById("networks");
+	const initialType = document.getElementById("initialVals");
 	const step = document.getElementById("step");
 	const reset = document.getElementById("reset");
+	const set = document.getElementById("set");
 	var flag = false;
 
-	agents.buildNetwork('allConnectedSmall');	
+	agents.buildNetwork('allConnectedSmall', 8, 0);	
 
 	run.addEventListener("click", function(e){
 		flag = true;
@@ -36,9 +38,24 @@ ASSET_MANAGER.downloadAll(() => {
 	});
 
 	reset.addEventListener("click", function(e){
-		let network = choice.options[choice.selectedIndex].text;
-		agents.buildNetwork(network);
+		flag = false;
+		let network = networkType.options[networkType.selectedIndex].text;
+		let initial = initialType.options[initialType.selectedIndex].value;
+		let slope = parseInt(document.getElementById("steepness").value);
+		agents.buildNetwork(network, slope, initial);
 	});
+
+	set.addEventListener("click", function(e){
+		let agentNum = parseInt(document.getElementById('agentNum').value);
+		if(agentNum < agents.agents.length){
+			let happy = parseFloat(document.getElementById("joyNum").value);
+			let sad = parseFloat(document.getElementById("sadNum").value);
+			let fear = parseFloat(document.getElementById("fearNum").value);
+			let anger = parseFloat(document.getElementById("angerNum").value);
+			agents.agents[agentNum].changeVals([happy, sad, fear, anger]);
+		}
+	})
+
 	function startLoop(){
 		if(flag == true){
 			agents.run();

@@ -13,21 +13,51 @@
     <script type="text/javascript" src="./nueron.js"></script>
     <script type="text/javascript" src="./agent.js"></script>
     <script type="text/javascript" src="./socialNetwork.js"></script>
+    <script type="text/javascript" src="./values.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </head>
 <body>
     <canvas id="gameWorld" width="1024" height="768" style="background: white; border: 1px solid black" tabindex="0" autofocus></canvas>
+    <div>
     <button id="Run" type = "button">Run</button>
     <button id="stop" type= "button">Stop</button>
     <button id="step" type = "button">Step</button>
-    <button id="reset" type = "button">Reset</button>
-    <select id="networks">
-        <option>allConnectedSmall</option>
-        <option>TraditionalMediaSmall</option>
-    </select>
+    </div>
     <div>
-        <input type="range" id="steepness" min="4" max="16" step="4">
+        <select id="networks">
+            <option>allConnectedSmall</option>
+            <option>TraditionalMediaSmall</option>
+            <option>single</option>
+            <option>fourOnOne</option>
+            <option>twin</option>
+            <option>tripleAll</option>
+            <option>tripleOneWay</option>
+        </select>
+        <select id="initialVals">
+            <option value="0">Default</option>
+            <option value="1">average</option>
+            <option value="2">all High</option>
+            <option value="3">all Low</option>
+            <option value="4">joyful</option>
+            <option value="5">sad</option>
+            <option value="6">fearful</option>
+            <option value="7">angry</option>
+        </select>
+        <button id="reset" type = "button">Reset</button>
+    </div>
+    <div>
+        <input type="range" id="steepness" min="4" max="16" value="8" step="4" >
         <label for="steepness">Slope</label>
+    </div>
+    <div>
+        <label>Agent</label>
+        <input type="text" id="agentNum" maxlength="4" size="4">
+        <label>Stats</label>
+        <input type="text" id="joyNum" maxlength="4" size="4">
+        <input type="text" id="sadNum" maxlength="4" size="4">
+        <input type="text" id="fearNum" maxlength="4" size="4">
+        <input type="text" id="angerNum" maxlength="4" size="4">
+        <button id="set" type="button">set</button>
     </div>
 </body>
 </html>

@@ -1,19 +1,27 @@
 class socialNetwork{
     constructor(){
         this.net = new networks();
-        this.buildNetwork('allConnectedSmall')
+        this.vals = new values();
     }
 
-    buildNetwork(networkName){
+    buildNetwork(networkName, slope, vals){
         let network = this.net.getNet(networkName);
         let masks = network.masks;
-        let positions = network.positions
+        let positions = network.positions;
+        let basic = network.default;
         this.agents = new Array(masks.length);
-        for(let i = 0; i < masks.length; i++){
-            this.agents[i] = new agent(masks.length, positions[i]);
-            this.agents[i].changeMask(masks[i]);
+        if(vals == 0){
+            for(let i = 0; i < masks.length; i++){
+                this.agents[i] = new agent(masks.length, positions[i], slope, this.vals.getVal(basic[i]));
+                this.agents[i].changeMask(masks[i]);
+            }
         }
-
+        else{
+            for(let i = 0; i < masks.length; i++){
+                this.agents[i] = new agent(masks.length, positions[i], slope, this.vals.getVal(vals));
+                this.agents[i].changeMask(masks[i]);
+            }
+        }
     }
 
     changeNetwork(name){

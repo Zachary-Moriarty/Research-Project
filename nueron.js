@@ -1,6 +1,7 @@
 class nueron{
-    constructor(wghtList){
+    constructor(wghtList, slope){
         this.weghts = wghtList;
+        this.slope = slope;
     }
 
     run(inputList, mask){
@@ -26,7 +27,7 @@ class nueron{
 
     sigmoid(input){
         //return 1 / (1 + Math.exp(-1 * (input - (.5))));
-       let val = 1 / (1 + Math.E ** (-4 * (input - .5)));
+       let val = 1 / (1 + Math.E ** ((-1 *  this.slope)* (input - .5)));
        return val;
     }
     update(){
