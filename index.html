@@ -27,11 +27,17 @@
         <select id="networks">
             <option>allConnectedSmall</option>
             <option>TraditionalMediaSmall</option>
+            <option>TraditionalMediaSmallLessConnected</option>
             <option>single</option>
+            <option>singleStoic</option>
+            <option>singleExcitable</option>
             <option>fourOnOne</option>
             <option>twin</option>
+            <option>twinPersonality</option>
             <option>tripleAll</option>
+            <option>tripleAllPersonality</option>
             <option>tripleOneWay</option>
+            <option>tripleOneWayPersonality</option>
         </select>
         <select id="initialVals">
             <option value="0">Default</option>
@@ -57,7 +63,23 @@
         <input type="text" id="sadNum" maxlength="4" size="4">
         <input type="text" id="fearNum" maxlength="4" size="4">
         <input type="text" id="angerNum" maxlength="4" size="4">
+        <label>stuborness</label>
+        <select id="stuborness">
+            <option value="1">normal</option>
+            <option value="0">stoic</option>
+            <option value="2">excitable</option>
+        </select>
         <button id="set" type="button">set</button>
+        <div>
+            <label>Happy</label>
+            <input type="checkbox" id="joyCheck"/>
+            <label>Sad</label>
+            <input type="checkbox" id="sadCheck"/>
+            <label>fearful</label>
+            <input type="checkbox" id="fearCheck"/>
+            <label>angry</label>
+            <input type="checkbox" id="angerCheck"/>
+        </div>
     </div>
 </body>
 </html>

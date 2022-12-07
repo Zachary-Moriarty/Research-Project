@@ -9,10 +9,11 @@ class socialNetwork{
         let masks = network.masks;
         let positions = network.positions;
         let basic = network.default;
+        let selfConnect = network.selfConnect;
         this.agents = new Array(masks.length);
         if(vals == 0){
             for(let i = 0; i < masks.length; i++){
-                this.agents[i] = new agent(masks.length, positions[i], slope, this.vals.getVal(basic[i]));
+                this.agents[i] = new agent(masks.length, positions[i], slope, this.vals.getVal(basic[i]), i, selfConnect[i]);
                 this.agents[i].changeMask(masks[i]);
             }
         }

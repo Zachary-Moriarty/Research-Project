@@ -47,12 +47,43 @@ ASSET_MANAGER.downloadAll(() => {
 
 	set.addEventListener("click", function(e){
 		let agentNum = parseInt(document.getElementById('agentNum').value);
+		let emotionType = parseInt(document.getElementById('stuborness').value);
 		if(agentNum < agents.agents.length){
-			let happy = parseFloat(document.getElementById("joyNum").value);
-			let sad = parseFloat(document.getElementById("sadNum").value);
-			let fear = parseFloat(document.getElementById("fearNum").value);
-			let anger = parseFloat(document.getElementById("angerNum").value);
+			let happy = parseFloat(document.getElementById("joyNum").value) / 100;
+			let sad = parseFloat(document.getElementById("sadNum").value) / 100;
+			let fear = parseFloat(document.getElementById("fearNum").value) / 100;
+			let anger = parseFloat(document.getElementById("angerNum").value) / 100;
 			agents.agents[agentNum].changeVals([happy, sad, fear, anger]);
+			let joyWeights = agents.agents[agentNum].joy.getWeights();
+			let sadWeights = agents.agents[agentNum].sad.getWeights();
+			let fearWeights = agents.agents[agentNum].fear.getWeights();
+			let angerWeights = agents.agents[agentNum].anger.getWeights();
+			if(emotionType == 0){
+				joyWeights[agentNum * 4] = -1;
+				sadWeights[agentNum * 4 + 1] = -1;
+				fearWeights[agentNum * 4 + 2] = -1;
+				angerWeights[agentNum * 4 + 3] = -1;
+			}
+			else if(emotionType == 1){
+				joyWeights[agentNum * 4] = 1;
+				sadWeights[agentNum * 4 + 1] = 1;
+				fearWeights[agentNum * 4 + 2] = 1;
+				angerWeights[agentNum * 4 + 3] = 1;
+			}
+			else if(emotionType == 2){
+				joyWeights[agentNum * 4] = 2;
+				sadWeights[agentNum * 4 + 1] = 2;
+				fearWeights[agentNum * 4 + 2] = 2;
+				angerWeights[agentNum * 4 + 3] = 2;
+			}
+			agents.agents[agentNum].joy.setWeights(joyWeights);
+			agents.agents[agentNum].sad.setWeights(sadWeights);
+			agents.agents[agentNum].fear.setWeights(fearWeights);
+			agents.agents[agentNum].anger.setWeights(angerWeights);
+			agents.agents[agentNum].joy.changeBias(document.getElementById('joyCheck').checked)
+			agents.agents[agentNum].sad.changeBias(document.getElementById('sadCheck').checked)
+			agents.agents[agentNum].fear.changeBias(document.getElementById('fearCheck').checked)
+			agents.agents[agentNum].anger.changeBias(document.getElementById('angerCheck').checked)
 		}
 	})
 
