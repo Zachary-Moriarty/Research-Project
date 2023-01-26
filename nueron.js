@@ -29,7 +29,7 @@ class nueron{
             }
             sum += inputList[i] * this.weights[i] * this.mask[j] / this.mid;
         }
-        sum += this.bias / (this.mid + 1);
+        sum += this.bias / this.mid;
         return this.sigmoid(sum);
     }
 

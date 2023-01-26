@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Game Project Title Goes Here</title>
+    <title>Emotional contagion</title>
   
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./timer.js"></script>
@@ -22,6 +22,7 @@
     <button id="Run" type = "button">Run</button>
     <button id="stop" type= "button">Stop</button>
     <button id="step" type = "button">Step</button>
+    <button id="print" type="button">print</button>
     </div>
     <div>
         <select id="networks">
@@ -68,6 +69,18 @@
             <option value="1">normal</option>
             <option value="0">stoic</option>
             <option value="2">excitable</option>
+        </select>
+        <label>Connection type</label>
+        <select id="connectionType">
+            <option value="0">default</option>
+            <option value="1">full positive</option>
+            <option value="2">strong positive</option>
+            <option value="3">middle positive</option>
+            <option value="4">weak positive</option>
+            <option value="5">weak negative</option>
+            <option value="6">middle negative</option>
+            <option value="7">strong negative</option>
+            <option value="8">full negative</option>
         </select>
         <button id="set" type="button">set</button>
         <div>

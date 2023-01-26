@@ -1,34 +1,17 @@
-class agent {let 
-    constructor(connections, position, slope, vals, agentNum, selfConnect) {
+class agent {
+    constructor(connections, position, slope, vals, agentNum, selfConnect, values, connectionWeights) {
         this.mask = new Array(connections).fill(1);
-        let joyweight = [connections*4];
-        let sadweight = [connections*4];
-        let fearweight = [connections*4];
-        let angerweight = [connections*4];
-        for(let i = 0; i < connections * 4; i++){
-            if(i % 4 == 0){
-                joyweight[i] = 1
-                sadweight[i] = 0
-                fearweight[i] = 0
-                angerweight[i] = 0
-            }
-            else if(i % 4 == 1){
-                joyweight[i] = 0
-                sadweight[i] = 1
-                fearweight[i] = 0
-                angerweight[i] = 0
-            }
-            else if(i % 4 == 2){
-                joyweight[i] = 0
-                sadweight[i] = 0
-                fearweight[i] = 1
-                angerweight[i] = 0
-            }
-            else if(i % 4 == 3){
-                joyweight[i] = 0
-                sadweight[i] = 0
-                fearweight[i] = 0
-                angerweight[i] = 1
+        let joyweight = [];
+        let sadweight = [];
+        let fearweight = [];
+        let angerweight = [];
+        this.agentNum = agentNum;
+        for(let i = 0; i < connections; i++){
+            for(let j = 0; j < 4; j++){
+                joyweight.push(values.getConnection(connectionWeights[i])[0][j])
+                sadweight.push(values.getConnection(connectionWeights[i])[1][j])
+                fearweight.push(values.getConnection(connectionWeights[i])[2][j])
+                angerweight.push(values.getConnection(connectionWeights[i])[3][j])
             }
         }
         joyweight[agentNum * 4] = selfConnect;
@@ -50,6 +33,10 @@ class agent {let
         let val2 = this.sad.run(vals);
         let val3 = this.fear.run(vals);
         let val4 = this.anger.run(vals);
+        params.joyValues[this.agentNum].push(val1);
+        params.sadValues[this.agentNum].push(val2);
+        params.fearValues[this.agentNum].push(val3);
+        params.angerValues[this.agentNum].push(val4);
         this.values = [val1, val2, val3, val4];
     }
 

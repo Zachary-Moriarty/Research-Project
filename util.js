@@ -1,5 +1,55 @@
 /** Global Parameters Object */
-const params = { };
+const params = {
+    joyValues : [],
+    sadValues : [],
+    fearValues : [],
+    angerValues : [],
+    compiled : [],
+    previousNetwork : ''
+ };
+
+ //global "print" function.
+ function printValues(){
+    let csvContent = "data:text/csv;charset=utf-8,";
+    var prev = false;
+    params.compiled.forEach(function(rowArray) {
+        if(Array.isArray(rowArray)){
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+            prev = false;
+        }
+        else{
+            if(prev){
+                csvContent += '\r\n' + rowArray + ",";
+                prev = false;
+            }
+            else{
+                csvContent += rowArray + ',';
+                prev = true;
+            }
+        }
+    });
+    // params.sadValues.forEach(function(rowArray) {
+    //     let row = rowArray.join(",");
+    //     csvContent += row + "\r\n";
+    // });
+    // params.fearValues.forEach(function(rowArray) {
+    //     let row = rowArray.join(",");
+    //     csvContent += row + "\r\n";
+    // });
+    // params.angerValues.forEach(function(rowArray) {
+    //     let row = rowArray.join(",");
+    //     csvContent += row + "\r\n";
+    // });
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "FealingValues.csv");
+    document.body.appendChild(link); // Required for FF
+
+    link.click();
+ }
 
 /**
  * @param {Number} n

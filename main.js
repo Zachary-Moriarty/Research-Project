@@ -10,7 +10,6 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 
 	gameEngine.addEntity(agents)
-	//gameEngine.addEntity(new nueron([1,1,1,1]))
 	gameEngine.init(ctx);
 
 	const run = document.getElementById("Run");
@@ -20,9 +19,11 @@ ASSET_MANAGER.downloadAll(() => {
 	const step = document.getElementById("step");
 	const reset = document.getElementById("reset");
 	const set = document.getElementById("set");
+	const print = document.getElementById("print");
 	var flag = false;
 
 	agents.buildNetwork('allConnectedSmall', 8, 0);	
+	params.previousNetwork = 'allConnectedSmall'
 
 	run.addEventListener("click", function(e){
 		flag = true;
@@ -39,7 +40,15 @@ ASSET_MANAGER.downloadAll(() => {
 
 	reset.addEventListener("click", function(e){
 		flag = false;
+		params.compiled.push(params.previousNetwork);
+		for(let i = 0; i < params.joyValues.length; i++){
+			params.compiled.push('agent ' + i + ' joy', params.joyValues[i])
+			params.compiled.push('agent ' + i + ' sadness', params.sadValues[i])
+			params.compiled.push('agent ' + i + ' fear', params.fearValues[i])
+			params.compiled.push('agent ' + i + ' anger', params.angerValues[i])
+		}
 		let network = networkType.options[networkType.selectedIndex].text;
+		params.previousNetwork = network;
 		let initial = initialType.options[initialType.selectedIndex].value;
 		let slope = parseInt(document.getElementById("steepness").value);
 		agents.buildNetwork(network, slope, initial);
@@ -54,10 +63,39 @@ ASSET_MANAGER.downloadAll(() => {
 			let fear = parseFloat(document.getElementById("fearNum").value) / 100;
 			let anger = parseFloat(document.getElementById("angerNum").value) / 100;
 			agents.agents[agentNum].changeVals([happy, sad, fear, anger]);
-			let joyWeights = agents.agents[agentNum].joy.getWeights();
-			let sadWeights = agents.agents[agentNum].sad.getWeights();
-			let fearWeights = agents.agents[agentNum].fear.getWeights();
-			let angerWeights = agents.agents[agentNum].anger.getWeights();
+			let joyWeights = [];
+			let sadWeights = [];
+			let fearWeights = [];
+			let angerWeights = [];
+			if(document.getElementById('connectionType').value == 0){
+				let connections = new networks().getNet(networkType.options[networkType.selectedIndex].text).connections;
+				let value = new values();
+				for(let i = 0; i < agents.agents.length; i++){
+					for(let j = 0; j < 4; j++){
+						joyWeights.push(value.getConnection(connections[agentNum][i])[0][j])
+						sadWeights.push(value.getConnection(connections[agentNum][i])[1][j])
+						fearWeights.push(value.getConnection(connections[agentNum][i])[2][j])
+						angerWeights.push(value.getConnection(connections[agentNum][i])[3][j])
+					}
+				}
+			}
+			else{
+				let value = new values();
+				for(let i = 0; i < agents.agents.length; i++){
+					for(let j = 0; j < 4; j++){
+						joyWeights.push(value.getConnection(document.getElementById('connectionType').value)[0][j])
+						sadWeights.push(value.getConnection(document.getElementById('connectionType').value)[1][j])
+						fearWeights.push(value.getConnection(document.getElementById('connectionType').value)[2][j])
+						angerWeights.push(value.getConnection(document.getElementById('connectionType').value)[3][j])
+					}
+				}
+			}
+			for(let i = 0; i < 4; i++){
+				joyWeights[agentNum * 4 + i] = 0;
+				sadWeights[agentNum * 4 + i] = 0;
+				fearWeights[agentNum * 4 + i] = 0;
+				angerWeights[agentNum * 4 + i] = 0;
+			}
 			if(emotionType == 0){
 				joyWeights[agentNum * 4] = -1;
 				sadWeights[agentNum * 4 + 1] = -1;
@@ -85,6 +123,18 @@ ASSET_MANAGER.downloadAll(() => {
 			agents.agents[agentNum].fear.changeBias(document.getElementById('fearCheck').checked)
 			agents.agents[agentNum].anger.changeBias(document.getElementById('angerCheck').checked)
 		}
+
+	});
+
+	print.addEventListener('click', function(e){
+		params.compiled.push(params.previousNetwork);
+		for(let i = 0; i < params.joyValues.length; i++){
+			params.compiled.push('agent ' + i + ' joy', params.joyValues[i])
+			params.compiled.push('agent ' + i + ' sadness', params.sadValues[i])
+			params.compiled.push('agent ' + i + ' fear', params.fearValues[i])
+			params.compiled.push('agent ' + i + ' anger', params.angerValues[i])
+		}
+		printValues();
 	})
 
 	function startLoop(){
@@ -95,5 +145,4 @@ ASSET_MANAGER.downloadAll(() => {
 	}
 	gameEngine.start();
 });
-
 
