@@ -20,10 +20,11 @@ ASSET_MANAGER.downloadAll(() => {
 	const reset = document.getElementById("reset");
 	const set = document.getElementById("set");
 	const print = document.getElementById("print");
+	const expiriment = document.getElementById("Expirement");
 	var flag = false;
 
-	agents.buildNetwork('allConnectedSmall', 8, 0);	
-	params.previousNetwork = 'allConnectedSmall'
+	agents.buildNetwork('allConnectedSmall', document.getElementById("steepness").value, 0);	
+	params.previousNetwork = 'allConnectedSmall, 8' 
 
 	run.addEventListener("click", function(e){
 		flag = true;
@@ -40,18 +41,13 @@ ASSET_MANAGER.downloadAll(() => {
 
 	reset.addEventListener("click", function(e){
 		flag = false;
-		params.compiled.push(params.previousNetwork);
-		for(let i = 0; i < params.joyValues.length; i++){
-			params.compiled.push('agent ' + i + ' joy', params.joyValues[i])
-			params.compiled.push('agent ' + i + ' sadness', params.sadValues[i])
-			params.compiled.push('agent ' + i + ' fear', params.fearValues[i])
-			params.compiled.push('agent ' + i + ' anger', params.angerValues[i])
-		}
+		compileVals();
 		let network = networkType.options[networkType.selectedIndex].text;
-		params.previousNetwork = network;
 		let initial = initialType.options[initialType.selectedIndex].value;
 		let slope = parseInt(document.getElementById("steepness").value);
 		agents.buildNetwork(network, slope, initial);
+		params.previousNetwork = network + ", " + params.joyValues.length;
+		
 	});
 
 	set.addEventListener("click", function(e){
@@ -127,15 +123,22 @@ ASSET_MANAGER.downloadAll(() => {
 	});
 
 	print.addEventListener('click', function(e){
-		params.compiled.push(params.previousNetwork);
-		for(let i = 0; i < params.joyValues.length; i++){
-			params.compiled.push('agent ' + i + ' joy', params.joyValues[i])
-			params.compiled.push('agent ' + i + ' sadness', params.sadValues[i])
-			params.compiled.push('agent ' + i + ' fear', params.fearValues[i])
-			params.compiled.push('agent ' + i + ' anger', params.angerValues[i])
-		}
+		compileVals();
 		printValues();
 	})
+
+	expiriment.addEventListener("click", function(e) {
+		flag = false;
+		clearSaved();
+		for(let i = 1; i < 112; i++){
+		let slope = parseInt(document.getElementById("steepness").value);
+		agents.expirimentBuild(i, slope);
+		params.previousNetwork = agents.networkName + ', ' + params.fearValues.length;
+		agents.loopRun(14);
+		if(i < 111){
+			compileVals();
+		}}
+	});
 
 	function startLoop(){
 		if(flag == true){

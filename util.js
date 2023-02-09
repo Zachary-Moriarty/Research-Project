@@ -8,6 +8,37 @@ const params = {
     previousNetwork : ''
  };
 
+ function compileVals(){
+    params.compiled.push(params.previousNetwork);
+    for(let i = 0; i < params.joyValues.length; i++){
+        for(let j = 0; j < params.joyValues[i].length; j++){
+            params.joyValues[i][j] = Math.round(params.joyValues[i][j] * 100);
+        }
+        params.compiled.push(' joy', params.joyValues[i])
+        for(let j = 0; j < params.sadValues[i].length; j++){
+            params.sadValues[i][j] = Math.round(params.sadValues[i][j] * 100);
+        }
+        params.compiled.push(' sadness', params.sadValues[i])
+        for(let j = 0; j < params.fearValues[i].length; j++){
+            params.fearValues[i][j] = Math.round(params.fearValues[i][j] * 100);
+        }
+        params.compiled.push(' fear', params.fearValues[i])
+        for(let j = 0; j < params.angerValues[i].length; j++){
+            params.angerValues[i][j] = Math.round(params.angerValues[i][j] * 100);
+        }
+        params.compiled.push(' anger', params.angerValues[i])
+    }
+ }
+
+ function clearSaved(){
+    joyValues = [];
+    sadValues = [];
+    fearValues = [];
+    angerValues = [];
+    compiled = [];
+    previousNetwork = '';
+ }
+
  //global "print" function.
  function printValues(){
     let csvContent = "data:text/csv;charset=utf-8,";

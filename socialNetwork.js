@@ -37,6 +37,32 @@ class socialNetwork{
         console.log(params);
     }
 
+    expirimentBuild(runNum, slope){
+        params.joyValues = [];
+        params.sadValues = [];
+        params.fearValues = [];
+        params.angerValues = [];
+        let network = expiriment[runNum]
+        this.networkName = network.name;
+        let masks = network.masks;
+        let positions = network.positions;
+        let basic = network.default;
+        let selfConnect = network.selfConnect;
+        let connections = network.connections;
+        this.agents = new Array(masks.length);
+        for(let i = 0; i < masks.length; i++){
+            this.agents[i] = new agent(masks.length, positions[i], slope, this.vals.getVal(basic[i]), i, selfConnect[i], this.vals, connections[i]);
+            this.agents[i].changeMask(masks[i]);
+        }
+        for(let i = 0; i < this.agents.length; i++){
+            params.joyValues.push([this.agents[i].values[0]]);
+            params.sadValues.push([this.agents[i].values[1]]);
+            params.fearValues.push([this.agents[i].values[2]]);
+            params.angerValues.push([this.agents[i].values[3]]);
+        }
+        console.log(params);
+    }
+
     changeNetwork(name){
         this.buildNetwork(name);
     }
