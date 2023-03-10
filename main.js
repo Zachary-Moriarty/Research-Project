@@ -130,12 +130,12 @@ ASSET_MANAGER.downloadAll(() => {
 	expiriment.addEventListener("click", function(e) {
 		flag = false;
 		clearSaved();
-		for(let i = 1; i < 112; i++){
+		for(let i = 1; i < 193; i++){
 		let slope = parseInt(document.getElementById("steepness").value);
 		agents.expirimentBuild(i, slope);
 		params.previousNetwork = agents.networkName + ', ' + params.fearValues.length;
 		agents.loopRun(14);
-		if(i < 111){
+		if(i < 192){
 			compileVals();
 		}}
 	});
